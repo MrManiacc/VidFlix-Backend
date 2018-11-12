@@ -16,6 +16,9 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,9 +101,21 @@ public class SolarGrabber {
 
         Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
 
+
+
+
+        List<String> allowUrlPatterns = new ArrayList<String>();
+        allowUrlPatterns.add("https?://.*(solarmovie.id)+.*");
+        allowUrlPatterns.add("https?://.*(stream-3-2.loadshare.org)+.*");
+        allowUrlPatterns.add("https?://.*(stream-2-2.loadshare.org/)+.*");
+        allowUrlPatterns.add("https?://.*(stream-1-2.loadshare.org/)+.*");
+        // All the URLs that are not from our sites are blocked and a status code of 403 is returned
+
+        proxy.whitelistRequests(allowUrlPatterns, 404);
+
         FirefoxOptions options = new FirefoxOptions();
         options.setHeadless(true);
-        options.addArguments("--disable-notifications");
+
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("media.volume_scale", "0.0");
         options.setProfile(firefoxProfile);
@@ -109,18 +124,14 @@ public class SolarGrabber {
         capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
         capabilities.setCapability("acceptInsecureCerts",true);
         capabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, options);
-        System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE,"true");
-        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
+        capabilities.setCapability("pageLoadStrategy", "eager");
         WebDriver driver = new FirefoxDriver(capabilities);
-
 
         proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
 
         proxy.newHar("Solarmovies");
-        proxy.blacklistRequests("https://stream-3-2.loadshare.org/custom/VideoID-siI01lMn/sol480.mp4", 404);
-        proxy.blacklistRequests("https://stream-2-2.loadshare.org/custom/VideoID-siI01lMn/sol480.mp4", 404);
-        proxy.blacklistRequests("https://stream-1-2.loadshare.org/custom/VideoID-siI01lMn/sol480.mp4", 404);
         this.proxy = proxy;
+
 
         this.driver = driver;
 
@@ -149,83 +160,6 @@ public class SolarGrabber {
     }
 
 
-    public String getMovieImage(String baseUrl) throws InterruptedException {
-
-        driver.get(baseUrl);
-        synchronized (driver)
-        {
-            driver.wait(300);
-        }
-
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
-
-        WebElement switchLabel = driver.findElement(By.cssSelector("#usefull_info"));
-        String url = ((JavascriptExecutor)driver) .executeScript("return window.getComputedStyle(arguments[0], ':before').getPropertyValue('background-image');",switchLabel).toString();
-        return url.replace("url(\"", "").replace("\")", "");
-    }
-
-
-    public VideoQuery queryVideo(String query) throws InterruptedException {
-        //proxy.newHar();
-        driver.get("https://solarmovie.id/");
-        System.out.println("Video query: " + query);
-
-        //if(proxy.getHar() == null) System.out.println("null");
-
-
-        System.out.println("here");
-        synchronized (driver)
-        {
-            driver.wait(300);
-        }
-
-        WebElement search = driver.findElement(By.id("fast-search"));
-        search.click();
-        search.sendKeys(query);
-        synchronized (driver)
-        {
-            driver.wait(300);
-        }
-        String originalHandle = driver.getWindowHandle();
-
-        //Do something to open new tabs
-
-        for(String handle : driver.getWindowHandles()) {
-            if (!handle.equals(originalHandle)) {
-                driver.switchTo().window(handle);
-                driver.close();
-            }
-        }
-
-        driver.switchTo().window(originalHandle);
-
-        synchronized (driver)
-        {
-            driver.wait(1000);
-        }
-
-        List<WebElement> webElements = driver.findElements(By.className("search-point"));
-        if(webElements == null || webElements.size() == 0){
-            driver.close();
-            System.out.println("not found!");
-            return null;
-        }
-        String url = webElements.get(0).getAttribute("href");
-        String name = webElements.get(0).getAttribute("title");
-        name = name.split(" : ")[0];
-        if(isQuery){
-            proxy.stop();
-            driver.close();
-        }
-
-
-
-        return new VideoQuery(name, url);
-    }
-
-
-
     public List<String> getEpisodeLinks(String url) throws InterruptedException {
         driver.get(url);
         synchronized (driver)
@@ -247,7 +181,6 @@ public class SolarGrabber {
         driver.close();
         return urls;
     }
-
     public SeriesQuery querySeries(String query) throws InterruptedException {
         //proxy.newHar();
         driver.get("https://solarmovie.id/");
@@ -304,6 +237,100 @@ public class SolarGrabber {
 
         return new SeriesQuery(url, name, this);
     }
+    public String getMovieImage(String baseUrl) throws InterruptedException {
+
+        driver.get(baseUrl);
+        synchronized (driver)
+        {
+            driver.wait(300);
+        }
+
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+
+        WebElement switchLabel = driver.findElement(By.cssSelector("#usefull_info"));
+        String url = ((JavascriptExecutor)driver) .executeScript("return window.getComputedStyle(arguments[0], ':before').getPropertyValue('background-image');",switchLabel).toString();
+        return url.replace("url(\"", "").replace("\")", "");
+    }
+
+    private WebElement getElement(WebDriver driver, By by){
+        try{
+            return driver.findElement(by);
+        }catch (Exception e){
+            try {
+                Thread.sleep(51);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            return getElement(driver, by);
+        }
+    }
+
+
+    private List<WebElement> getElements(WebDriver driver, By by){
+        try{
+            return driver.findElements(by);
+        }catch (Exception e){
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            System.out.println("Couldnt find, retrying...");
+            return getElements(driver, by);
+        }
+    }
+
+    public VideoQuery queryVideo(String query) throws InterruptedException {
+        //proxy.newHar();
+        driver.get("https://solarmovie.id/");
+        System.out.println("in query video");
+
+
+
+        WebElement search = getElement(driver, By.id("fast-search"));
+
+        search.click();
+        search.sendKeys(query);
+
+
+
+//        synchronized (driver)
+//        {
+//            driver.wait(300);
+//        }
+//        String originalHandle = driver.getWindowHandle();
+//
+//        //Do something to open new tabs
+//
+//        for(String handle : driver.getWindowHandles()) {
+//            if (!handle.equals(originalHandle)) {
+//                driver.switchTo().window(handle);
+//                driver.close();
+//            }
+//        }
+//
+//        driver.switchTo().window(originalHandle);
+
+        List<WebElement> webElements = getElements(driver, By.className("search-point"));
+        while(webElements.size() == 0){
+            webElements = getElements(driver, By.className("search-point"));
+            Thread.sleep(100);
+            System.out.println("elements null... retrying");
+        }
+        String url = webElements.get(0).getAttribute("href");
+        String name = webElements.get(0).getAttribute("title");
+        name = name.split(" : ")[0];
+        System.out.println(name + ":" + url);
+        if(isQuery){
+            proxy.stop();
+            driver.close();
+        }
+
+
+
+        return new VideoQuery(name, url);
+    }
 
     public  String captureScreenshot (WebDriver driver, String screenshotName){
 
@@ -321,24 +348,30 @@ public class SolarGrabber {
 
     public  String getMovieUrl(String baseUrl) throws InterruptedException {
         driver.get(baseUrl);
+        System.out.println("getting mp4 for: " + baseUrl);
         synchronized (driver)
         {
             driver.wait(300);
         }
 
+        getElement(driver, By.className("selected-box-title")).click();
 
 
-        driver.findElement(By.className("selected-box-title")).click();
-        synchronized (driver)
-        {
-            driver.wait(300);
+        //WebDriverWait wait1 = new WebDriverWait(driver, 5);
+
+        WebElement server =getElement(driver, By.xpath("//li[@data-value='server_4']"));
+
+        //WebElement server = getElement(driver, By.xpath("//#select_serv/option[@value='server_4']"));
+
+        try{
+            server.click();
+        }catch(Exception e){
+//            WebElement server1 =getElement(driver, By.xpath("//li[@data-value='server_3']"));
+//            System.out.println("using other server");
+//            server1.click();
+            Thread.sleep(2000);
         }
-        driver.findElement(By.xpath("//li[@data-value='server_4']")).click();
 
-        String originalHandle = driver.getWindowHandle();
-
-        //Do something to open new tabs
-//
 
         String url = getURL(driver);
 
@@ -346,39 +379,24 @@ public class SolarGrabber {
             url = getURL(driver);
             Thread.sleep(500);
         }
-
-        for(String handle : driver.getWindowHandles()) {
-            if (!handle.equals(originalHandle)) {
-                driver.switchTo().window(handle);
-                driver.close();
-            }
-        }
-        driver.switchTo().window(originalHandle);
-
         driver.close();
         return url;
     }
 
     public  String getGenre(String baseUrl) throws InterruptedException {
         driver.get(baseUrl);
-        synchronized (driver)
-        {
-            driver.wait(300);
-        }
 
+        System.out.println("Getting genre for: " + baseUrl);
 
-        WebElement genreList = driver.findElement(By.className("v"));
+        WebElement genreList = getElement(driver,By.className("v"));
         List<WebElement> allFormChildElements = genreList.findElements(By.xpath("*"));
         return allFormChildElements.get(0).getText();
     }
 
     public  String getName(String baseUrl) throws InterruptedException {
         driver.get(baseUrl);
-        synchronized (driver)
-        {
-            driver.wait(300);
-        }
-        WebElement genreList = driver.findElement(By.className("movie_title"));
+        System.out.println("Getting name for: " + baseUrl);
+        WebElement genreList = getElement(driver, By.className("movie_title"));
         List<WebElement> allFormChildElements = genreList.findElements(By.xpath("*"));
         return allFormChildElements.get(0).getText();
     }
@@ -386,11 +404,12 @@ public class SolarGrabber {
 
     private  String getURL(WebDriver driver) throws InterruptedException {
         List<HarEntry> entries = proxy.getHar().getLog().getEntries();
-
         for (HarEntry entry : entries) {
             if(entry.getRequest().getUrl().contains("/stream2/")){
                 System.out.println("Found: " + entry.getRequest().getUrl());
                 return entry.getRequest().getUrl();
+            }else{
+                System.out.println("Haven't found url yet...");
             }
         }
         return "NA";

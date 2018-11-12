@@ -101,8 +101,10 @@ public class VideoManager implements Runnable{
             if(!isQuery && videoQuery.didFindVideo()){
                 try {
                     video = videoQuery.getVideo();
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
+                    System.out.println("Exception with video '" + query + "'");
                     e.printStackTrace();
+
                 }finally {
                     if(video.getUrl().equalsIgnoreCase(("NOT_FOUND"))) videoCompleted.mp4NotFound(this);
 

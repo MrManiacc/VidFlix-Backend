@@ -95,9 +95,6 @@ public class QueueManager implements Runnable{
                 }
 
                 if (totalRunning < 2) {
-                    for (int i = 0; i < activeQueries.length; i++) {
-                        System.out.println(i + ":" + activeQueries[i]);
-                    }
                     int lastIndex = 0;
                     for (int i = 0; i < queriesArray.length; i++) {
                         if (!activeQueries[i]) {
