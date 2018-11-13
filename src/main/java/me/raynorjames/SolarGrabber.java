@@ -355,6 +355,7 @@ public class SolarGrabber {
 
     public  String getMovieUrl(String baseUrl) throws InterruptedException {
         driver.get(baseUrl);
+
         ConnectionManager.sendLog(name,"Starting to grab mp4 file");
         synchronized (driver)
         {
@@ -389,14 +390,7 @@ public class SolarGrabber {
 
         if(url.equalsIgnoreCase("NOT_FOUND")){
             ConnectionManager.sendLog(name, "Timed out, trying again...");
-            driver.close();
-            try {
-                initFireFox();
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            urlRunCount = 0;
             return getMovieUrl(baseUrl);
             //Will wait until 80 tries has passed, if not found, will close window, open a new one and try to get url again.
         }
@@ -439,7 +433,7 @@ public class SolarGrabber {
                 if(diff >= 500){
                     urlRunCount++;
 
-                    if(urlRunCount >= 80){
+                    if(urlRunCount >= 15){
                         return "NOT_FOUND";
                     }else{
                         ConnectionManager.sendLog(name, "Finding mp4 file, attempt: " + urlRunCount);
