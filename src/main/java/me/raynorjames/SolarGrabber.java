@@ -16,13 +16,10 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.Inet4Address;
+import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -34,11 +31,16 @@ public class SolarGrabber {
 
     private WebDriver driver;
     private boolean isQuery;
-    private long videoTimeout;
     private BrowserMobProxy proxy;
-    public SolarGrabber(boolean isQuery, long videoTimeout) throws UnknownHostException, URISyntaxException {
+    private long lastTime;
+    private int urlRunCount;
+
+    private String name;
+
+
+    public SolarGrabber(boolean isQuery, String name) throws UnknownHostException, URISyntaxException {
         this.isQuery = isQuery;
-        this.videoTimeout = videoTimeout;
+        this.name = name;
         initFireFox();
     }
 
@@ -92,8 +94,6 @@ public class SolarGrabber {
     }
 
     private void initFireFox() throws UnknownHostException, URISyntaxException {
-
-        System.out.println(new File(SolarGrabber.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath());
         System.setProperty("webdriver.gecko.driver", MainClass.driverPath);
 
         BrowserMobProxy proxy = new BrowserMobProxyServer();
@@ -171,10 +171,9 @@ public class SolarGrabber {
         List<WebElement> lis = listContainer.findElements(By.tagName("li"));
         List<String> urls = new ArrayList<>();
         for(WebElement li : lis){
-            System.out.println();
             String id = li.getAttribute("data-ep-id");
             String link = url + "/" + id;
-            System.out.println(li.getText() + ":" + link);
+            ConnectionManager.sendLog(li.getText(),"Found episode link: " + link);
             urls.add(link);
         }
         proxy.stop();
@@ -184,8 +183,10 @@ public class SolarGrabber {
     public SeriesQuery querySeries(String query) throws InterruptedException {
         //proxy.newHar();
         driver.get("https://solarmovie.id/");
-        System.out.println("Video query: " + query);
 
+
+
+        //ConnectionManager.sendLog(query, );
         //if(proxy.getHar() == null) System.out.println("null");
 
 
@@ -223,7 +224,7 @@ public class SolarGrabber {
         List<WebElement> webElements = driver.findElements(By.className("search-point"));
         if(webElements == null || webElements.size() == 0){
             driver.close();
-            System.out.println("not found!");
+            ConnectionManager.sendLog(query, "Didn't find movie!");
             return null;
         }
         String url = webElements.get(0).getAttribute("href");
@@ -284,7 +285,7 @@ public class SolarGrabber {
     public VideoQuery queryVideo(String query) throws InterruptedException {
         //proxy.newHar();
         driver.get("https://solarmovie.id/");
-        System.out.println("in query video");
+        ConnectionManager.sendLog(query, "Starting query...");
 
 
 
@@ -348,7 +349,7 @@ public class SolarGrabber {
 
     public  String getMovieUrl(String baseUrl) throws InterruptedException {
         driver.get(baseUrl);
-        System.out.println("getting mp4 for: " + baseUrl);
+        ConnectionManager.sendLog(name,"Starting to grab mp4 file");
         synchronized (driver)
         {
             driver.wait(300);
@@ -387,7 +388,7 @@ public class SolarGrabber {
         driver.get(baseUrl);
 
         System.out.println("Getting genre for: " + baseUrl);
-
+        ConnectionManager.sendLog(name, "Getting video genre");
         WebElement genreList = getElement(driver,By.className("v"));
         List<WebElement> allFormChildElements = genreList.findElements(By.xpath("*"));
         return allFormChildElements.get(0).getText();
@@ -396,9 +397,11 @@ public class SolarGrabber {
     public  String getName(String baseUrl) throws InterruptedException {
         driver.get(baseUrl);
         System.out.println("Getting name for: " + baseUrl);
+        ConnectionManager.sendLog(name, "Getting video title");
         WebElement genreList = getElement(driver, By.className("movie_title"));
         List<WebElement> allFormChildElements = genreList.findElements(By.xpath("*"));
-        return allFormChildElements.get(0).getText();
+        name = allFormChildElements.get(0).getText();
+        return name;
     }
 
 
@@ -406,10 +409,17 @@ public class SolarGrabber {
         List<HarEntry> entries = proxy.getHar().getLog().getEntries();
         for (HarEntry entry : entries) {
             if(entry.getRequest().getUrl().contains("/stream2/")){
-                System.out.println("Found: " + entry.getRequest().getUrl());
+                System.out.println("Found url[" + urlRunCount + "]: " + entry.getRequest().getUrl());
                 return entry.getRequest().getUrl();
             }else{
-                System.out.println("Haven't found url yet...");
+                long currentTime = System.currentTimeMillis();
+                long diff = currentTime - lastTime;
+                if(diff >= 500){
+                    urlRunCount++;
+                    ConnectionManager.sendLog(name, "Finding mp4 file, attempt: " + urlRunCount);
+                    Thread.sleep(1000);
+                }
+                lastTime = System.currentTimeMillis();
             }
         }
         return "NA";

@@ -85,7 +85,7 @@ public class VideoManager implements Runnable{
         isRunning = true;
         if(!isUrl){
             try {
-                this.videoQuery = new VideoQuery(query, isQuery, videoTimeout);
+                this.videoQuery = new VideoQuery(query, isQuery);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (UnknownHostException e) {
@@ -119,7 +119,7 @@ public class VideoManager implements Runnable{
             isRunning = false;
         }else{
             try {
-                Video redownloaded = new Video(this.url, new SolarGrabber(false, 13000));
+                Video redownloaded = new Video(this.url, new SolarGrabber(false, "NA"));
                 System.out.println(redownloaded.toString());
                 if(usingGenre)
                     redownloaded.setGenre(genre);

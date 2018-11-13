@@ -169,13 +169,9 @@ public class QueueManager implements Runnable{
 
 
                     if (!lastStared) {
-
-                        System.out.println(lastIndex);
-                        System.out.println(lastIndex + ":" + queriesArray[lastIndex] + ":" + activeQueries[lastIndex]);
                         if (lastIndex == 0) {
                             lastStared = true;
                         }
-                            System.out.println("Starting query: " + queriesArray[lastIndex]);
                             VideoManager videoManager = new VideoManager(queriesArray[lastIndex], 13000, new VideoCompleteSender(socket, lastIndex, total));
                             currentQueue.add(videoManager);
                             activeQueries[lastIndex] = true;

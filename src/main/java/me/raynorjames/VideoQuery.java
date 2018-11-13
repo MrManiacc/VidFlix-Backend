@@ -15,9 +15,9 @@ public class VideoQuery {
         this.link = link;
     }
 
-    public VideoQuery(String query, boolean isQuery, long videoTimeout) throws InterruptedException, UnknownHostException, URISyntaxException {
+    public VideoQuery(String query, boolean isQuery) throws InterruptedException, UnknownHostException, URISyntaxException {
         long startTime = System.currentTimeMillis();
-        this.solarGrabber = new SolarGrabber(isQuery, videoTimeout);
+        this.solarGrabber = new SolarGrabber(isQuery, query);
         VideoQuery data = solarGrabber.queryVideo(query);
         System.out.println("here2");
         foundVideo = true;

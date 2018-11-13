@@ -14,6 +14,7 @@ public class VideoCompleteSender implements VideoCompleted {
     private static int totalCompleted = 0;
     private int total;
     public static boolean shouldStop = false;
+
     public VideoCompleteSender(Socket socket, int index, int total){
         this.socket = socket;
         this.index = index;
@@ -40,8 +41,7 @@ public class VideoCompleteSender implements VideoCompleted {
     public void videoCompleted(Video video) {
         if(index == -5){
             socket.emit("video", ConnectionManager.getVideoJson(video));
-            System.out.println("Sending: " + video.toString());
-            System.out.println("video sent");
+            ConnectionManager.sendLog(video.getName(), "Completed!");
             System.exit(0);
         }else{
             totalCompleted++;
@@ -54,6 +54,7 @@ public class VideoCompleteSender implements VideoCompleted {
                 completedVideos.add(video);
             }
             if(totalCompleted == total){
+                ConnectionManager.sendLog("Complete", "Bulk video download complete");
                 socket.emit("bulkvideo", getBulkVideoJson());
                 shouldStop = true;
                 System.exit(0);

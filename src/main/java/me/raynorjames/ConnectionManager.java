@@ -2,7 +2,6 @@ package me.raynorjames;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,57 +11,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectionManager {
-    private Socket socket;
+    private static Socket socket;
 
-    public Socket getSocket() {
+    public static Socket getSocket() {
         return socket;
     }
 
+    public static void sendLog(String queryName, String message)  {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("name", queryName);
+            object.put("message", message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(socket.connected()) socket.emit("log", object);
+    }
+
+
     public ConnectionManager(int port) throws URISyntaxException {
         socket = IO.socket("http://localhost:" + port);
-        socket.on("query", new Emitter.Listener() {
-
-            @Override
-            public void call(Object... objects) {
-                try {
-                    JSONObject query = new JSONObject(objects[0].toString());
-                    onQueryReceived(query.get("query").toString(), query.get("genre").toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+        socket.on("query", objects -> {
+            try {
+                JSONObject query = new JSONObject(objects[0].toString());
+                onQueryReceived(query.get("query").toString(), query.get("genre").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
         });
-        socket.on("redl", new Emitter.Listener() {
+        socket.on("redl", objects -> onRedownloadReceieved((String) objects[0]));
 
-            @Override
-            public void call(Object... objects) {
+        socket.on("series", objects -> {
 
-                onRedownloadReceieved((String) objects[0]);
-
+            try {
+                JSONObject query = new JSONObject(objects[0].toString());
+                onTvSeriesReceived(query.get("query").toString(), query.get("genre").toString());
+            } catch (InterruptedException | URISyntaxException | UnknownHostException | JSONException e) {
+                e.printStackTrace();
             }
-        });
 
-        socket.on("series", new Emitter.Listener() {
-
-            @Override
-            public void call(Object... objects) {
-
-                try {
-                    JSONObject query = new JSONObject(objects[0].toString());
-                    onTvSeriesReceived(query.get("query").toString(), query.get("genre").toString());
-                  // onTvSeriesReceived((String) objects[0], (String) objects[1]);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
         });
 
 
@@ -70,7 +58,7 @@ public class ConnectionManager {
     }
 
     private void onTvSeriesReceived(String url, String genre) throws InterruptedException, URISyntaxException, UnknownHostException {
-        SolarGrabber solarGrabber = new SolarGrabber(false, 10000L);
+        SolarGrabber solarGrabber = new SolarGrabber(false, url);
         SeriesQuery seriesQuery = solarGrabber.querySeries(url);
         if(genre.equals(""))
             seriesQuery.start(socket);
@@ -95,7 +83,7 @@ public class ConnectionManager {
 
     private void onRedownloadReceieved(String url){
         System.out.println(url);
-        VideoManager videoManager = new VideoManager(url, 13000, new VideoCompleted() {
+         new VideoManager(url, 13000, new VideoCompleted() {
             @Override
             public void queryCompleted(VideoQuery videoQuery) {
 
