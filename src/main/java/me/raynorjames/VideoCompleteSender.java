@@ -64,13 +64,11 @@ public class VideoCompleteSender implements VideoCompleted {
 
     @Override
     public void queryNotFound(String query) {
-        socket.emit("not_found");
         System.out.println("query not found");
     }
 
     @Override
     public void mp4NotFound(VideoManager videoManager) {
-        socket.emit("not_found");
         System.out.println("mp4 not found");
     }
 }

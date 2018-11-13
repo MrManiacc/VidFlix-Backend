@@ -28,6 +28,16 @@ public class ConnectionManager {
         if(socket.connected()) socket.emit("log", object);
     }
 
+    public static void sendNotFound(String name){
+        JSONObject object = new JSONObject();
+        try {
+            object.put("name", name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(socket.connected()) socket.emit("not_found", object);
+    }
+
 
     public ConnectionManager(int port) throws URISyntaxException {
         socket = IO.socket("http://localhost:" + port);

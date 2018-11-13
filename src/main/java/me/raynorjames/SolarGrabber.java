@@ -19,7 +19,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 import java.io.IOException;
 import java.net.Inet4Address;
-import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -314,10 +313,17 @@ public class SolarGrabber {
 //        driver.switchTo().window(originalHandle);
 
         List<WebElement> webElements = getElements(driver, By.className("search-point"));
+        int attempt = 0;
+        ConnectionManager.sendLog(name, "Searching for link");
+
         while(webElements.size() == 0){
             webElements = getElements(driver, By.className("search-point"));
-            Thread.sleep(100);
-            System.out.println("elements null... retrying");
+            attempt++;
+            if(attempt >= 15){
+                ConnectionManager.sendNotFound(name);
+                driver.close();
+            }
+            Thread.sleep(1000);
         }
         String url = webElements.get(0).getAttribute("href");
         String name = webElements.get(0).getAttribute("title");
@@ -374,15 +380,32 @@ public class SolarGrabber {
         }
 
 
-        String url = getURL(driver);
+        String url = getURL();
 
         while(url.equalsIgnoreCase("NA")){
-            url = getURL(driver);
+            url = getURL();
             Thread.sleep(500);
         }
+
+        if(url.equalsIgnoreCase("NOT_FOUND")){
+            ConnectionManager.sendLog(name, "Timed out, trying again...");
+            driver.close();
+            try {
+                initFireFox();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            return getMovieUrl(baseUrl);
+            //Will wait until 80 tries has passed, if not found, will close window, open a new one and try to get url again.
+        }
+
         driver.close();
         return url;
     }
+
+
 
     public  String getGenre(String baseUrl) throws InterruptedException {
         driver.get(baseUrl);
@@ -404,8 +427,7 @@ public class SolarGrabber {
         return name;
     }
 
-
-    private  String getURL(WebDriver driver) throws InterruptedException {
+    private  String getURL() throws InterruptedException {
         List<HarEntry> entries = proxy.getHar().getLog().getEntries();
         for (HarEntry entry : entries) {
             if(entry.getRequest().getUrl().contains("/stream2/")){
@@ -416,8 +438,13 @@ public class SolarGrabber {
                 long diff = currentTime - lastTime;
                 if(diff >= 500){
                     urlRunCount++;
-                    ConnectionManager.sendLog(name, "Finding mp4 file, attempt: " + urlRunCount);
-                    Thread.sleep(1000);
+
+                    if(urlRunCount >= 80){
+                        return "NOT_FOUND";
+                    }else{
+                        ConnectionManager.sendLog(name, "Finding mp4 file, attempt: " + urlRunCount);
+                        Thread.sleep(1000);
+                    }
                 }
                 lastTime = System.currentTimeMillis();
             }
