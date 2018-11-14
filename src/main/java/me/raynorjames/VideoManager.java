@@ -18,9 +18,11 @@ public class VideoManager implements Runnable{
     private static List<String> alreadyStarted = new ArrayList<>();
     private String url;
     private boolean isUrl;
+    private int index;
 
-    public VideoManager(String query, boolean isQuery, long videoTimeout, String genre, VideoCompleted videoCompletedCB){
+    public VideoManager(int index, String query, boolean isQuery, long videoTimeout, String genre, VideoCompleted videoCompletedCB){
         if(!alreadyStarted.contains(query)){
+            this.index = index;
             this.query = query;
             this.isQuery = isQuery;
             this.videoTimeout = videoTimeout;
@@ -37,8 +39,12 @@ public class VideoManager implements Runnable{
         }
     }
 
-    public VideoManager(String query, boolean isQuery, long videoTimeout, VideoCompleted videoCompletedCB){
+
+
+
+    public VideoManager(int index, String query, boolean isQuery, long videoTimeout, VideoCompleted videoCompletedCB){
         if(!alreadyStarted.contains(query)){
+            this.index = index;
             this.query = query;
             this.isQuery = isQuery;
             this.videoTimeout = videoTimeout;
@@ -55,7 +61,11 @@ public class VideoManager implements Runnable{
         }
     }
 
-    public VideoManager(String url, long videoTimeout, VideoCompleted videoCompleted){
+
+
+
+    public VideoManager(int index, String url, long videoTimeout, VideoCompleted videoCompleted){
+        this.index = index;
         isUrl = true;
         this.url = url;
         this.query = url;
@@ -67,7 +77,8 @@ public class VideoManager implements Runnable{
         usingGenre = false;
         thread.start();
     }
-    public VideoManager(String url, long videoTimeout, VideoCompleted videoCompleted, String genre){
+    public VideoManager(int index, String url, long videoTimeout, VideoCompleted videoCompleted, String genre){
+        this.index = index;
         isUrl = true;
         this.url = url;
         this.query = url;
@@ -101,6 +112,8 @@ public class VideoManager implements Runnable{
             if(!isQuery && videoQuery.didFindVideo()){
                 try {
                     video = videoQuery.getVideo();
+                    if(index != -5)
+                        video.setIndex(index);
                 } catch (Exception e) {
                     System.out.println("Exception with video '" + query + "'");
                     e.printStackTrace();
@@ -120,6 +133,8 @@ public class VideoManager implements Runnable{
         }else{
             try {
                 Video redownloaded = new Video(this.url, new SolarGrabber(false, "NA"));
+                if(index != -5)
+                    redownloaded.setIndex(index);
                 System.out.println(redownloaded.toString());
                 if(usingGenre)
                     redownloaded.setGenre(genre);

@@ -93,7 +93,7 @@ public class ConnectionManager {
 
     private void onRedownloadReceieved(String url){
         System.out.println(url);
-         new VideoManager(url, 13000, new VideoCompleted() {
+         new VideoManager(-5, url, 13000, new VideoCompleted() {
             @Override
             public void queryCompleted(VideoQuery videoQuery) {
 
@@ -145,7 +145,7 @@ public class ConnectionManager {
             }
             queueManager.start();
         }else{
-            new VideoManager(query, false, 13000, new VideoCompleteSender(socket, -5, 1));
+            new VideoManager(-5, query, false, 13000, new VideoCompleteSender(socket, -5, 1));
         }
 
     }

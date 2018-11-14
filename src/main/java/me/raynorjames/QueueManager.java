@@ -113,12 +113,12 @@ public class QueueManager implements Runnable{
                         }
                         if (usingGenre) {
                             System.out.println("USING GENRE");
-                            VideoManager videoManager = new VideoManager(queriesArray[lastIndex], false, 13000, genre, new VideoCompleteSender(socket, lastIndex, total));
+                            VideoManager videoManager = new VideoManager(lastIndex, queriesArray[lastIndex], false, 13000, genre, new VideoCompleteSender(socket, lastIndex, total));
                             currentQueue.add(videoManager);
                             activeQueries[lastIndex] = true;
                         } else {
                             System.out.println("NOT USING GENRE");
-                            VideoManager videoManager = new VideoManager(queriesArray[lastIndex], false, 13000, new VideoCompleteSender(socket, lastIndex, total));
+                            VideoManager videoManager = new VideoManager(lastIndex, queriesArray[lastIndex], false, 13000, new VideoCompleteSender(socket, lastIndex, total));
                             currentQueue.add(videoManager);
                             activeQueries[lastIndex] = true;
                         }
@@ -172,7 +172,7 @@ public class QueueManager implements Runnable{
                         if (lastIndex == 0) {
                             lastStared = true;
                         }
-                            VideoManager videoManager = new VideoManager(queriesArray[lastIndex], 13000, new VideoCompleteSender(socket, lastIndex, total));
+                            VideoManager videoManager = new VideoManager(lastIndex, queriesArray[lastIndex], 13000, new VideoCompleteSender(socket, lastIndex, total));
                             currentQueue.add(videoManager);
                             activeQueries[lastIndex] = true;
                     }

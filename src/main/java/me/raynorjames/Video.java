@@ -1,12 +1,13 @@
 package me.raynorjames;
 
-public class Video {
+public class Video implements Comparable<Video>{
     private String name;
     private String url;
     private String baseUrl;
     private String img;
     private String genre;
     private SolarGrabber solarGrabber;
+    private int index;
 
     public Video(String data, SolarGrabber solarGrabber) throws InterruptedException {
         this.solarGrabber = solarGrabber;
@@ -45,6 +46,15 @@ public class Video {
 
     public String getBaseUrl(){return baseUrl; }
 
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -58,5 +68,12 @@ public class Video {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    @Override
+    public int compareTo(Video other) {
+        if(getIndex() < other.getIndex()) return -1;
+        if(getIndex() > other.getIndex()) return 1;
+        return 0;
     }
 }
