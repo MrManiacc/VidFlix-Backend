@@ -18,14 +18,15 @@ public class Video implements Comparable<Video>{
 
     private void grabMovieInfo(String baseUrl) throws InterruptedException {
         long start = System.currentTimeMillis();
+        this.url = solarGrabber.getMovieFile(baseUrl);
         this.name = solarGrabber.getName(baseUrl);
         this.genre = solarGrabber.getGenre(baseUrl);
         this.img = solarGrabber.getMovieImage(baseUrl);
-        this.url = solarGrabber.getMovieUrl(baseUrl);
         if(!this.url.contains("https://")) this.url = "NOT_FOUND";
+        solarGrabber.quit();
         long stop = System.currentTimeMillis();
         float time  = (stop - start) / 1000.0F;
-        System.out.println("Done in: " + time + "s");
+        ConnectionManager.sendLog(name, "finished in: " + time + "s");
     }
 
     public String getName() {

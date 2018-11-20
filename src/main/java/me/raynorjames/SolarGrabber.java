@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -100,14 +101,18 @@ public class SolarGrabber {
 
         Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
 
-
+        File pathToBinary = new File(MainClass.binPath);
+        FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
 
 
         List<String> allowUrlPatterns = new ArrayList<String>();
         allowUrlPatterns.add("https?://.*(solarmovie.id)+.*");
-        allowUrlPatterns.add("https?://.*(stream-3-2.loadshare.org)+.*");
+        allowUrlPatterns.add("https?://.*(stream-3-2.loadshare.org/)+.*");
         allowUrlPatterns.add("https?://.*(stream-2-2.loadshare.org/)+.*");
         allowUrlPatterns.add("https?://.*(stream-1-2.loadshare.org/)+.*");
+        allowUrlPatterns.add("https?://.*(stream-2-1.loadshare.org/)+.*");
+        allowUrlPatterns.add("https?://.*(stream-3-1.loadshare.org/)+.*");
+        allowUrlPatterns.add("https?://.*(stream-1-1.loadshare.org/)+.*");
         // All the URLs that are not from our sites are blocked and a status code of 403 is returned
 
         proxy.whitelistRequests(allowUrlPatterns, 404);
@@ -118,6 +123,7 @@ public class SolarGrabber {
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("media.volume_scale", "0.0");
         options.setProfile(firefoxProfile);
+        options.setBinary(ffBinary);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
@@ -238,16 +244,6 @@ public class SolarGrabber {
         return new SeriesQuery(url, name, this);
     }
     public String getMovieImage(String baseUrl) throws InterruptedException {
-
-        driver.get(baseUrl);
-        synchronized (driver)
-        {
-            driver.wait(300);
-        }
-
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
-
         WebElement switchLabel = driver.findElement(By.cssSelector("#usefull_info"));
         String url = ((JavascriptExecutor)driver) .executeScript("return window.getComputedStyle(arguments[0], ':before').getPropertyValue('background-image');",switchLabel).toString();
         return url.replace("url(\"", "").replace("\")", "");
@@ -333,9 +329,6 @@ public class SolarGrabber {
             proxy.stop();
             driver.close();
         }
-
-
-
         return new VideoQuery(name, url);
     }
 
@@ -354,9 +347,9 @@ public class SolarGrabber {
     }
 
     public  String getMovieUrl(String baseUrl) throws InterruptedException {
-        driver.get(baseUrl);
+       // driver.get(baseUrl);
 
-        ConnectionManager.sendLog(name,"Starting to grab mp4 file");
+        ConnectionManager.sendLog(name,"Starting to grab mp4 file 2");
         synchronized (driver)
         {
             driver.wait(300);
@@ -394,15 +387,67 @@ public class SolarGrabber {
             return getMovieUrl(baseUrl);
             //Will wait until 80 tries has passed, if not found, will close window, open a new one and try to get url again.
         }
-
-        driver.close();
         return url;
     }
 
 
 
-    public  String getGenre(String baseUrl) throws InterruptedException {
+
+    public  String getMovieFile(String baseUrl) throws InterruptedException {
         driver.get(baseUrl);
+
+        ConnectionManager.sendLog(name,"Starting to grab mp4 file 1");
+        System.out.println("Starting to grab mp4 file 1");
+
+        synchronized (driver)
+        {
+            driver.wait(300);
+        }
+
+       // getElement(driver, By.className("selected-box-title")).click();
+
+
+        //WebDriverWait wait1 = new WebDriverWait(driver, 5);
+
+       // WebElement server =getElement(driver, By.xpath("//li[@data-value='server_4']"));
+
+        //WebElement server = getElement(driver, By.xpath("//#select_serv/option[@value='server_4']"));
+
+        try{
+      //      server.click();
+        }catch(Exception e){
+//            WebElement server1 =getElement(driver, By.xpath("//li[@data-value='server_3']"));
+//            System.out.println("using other server");
+//            server1.click();
+         //   Thread.sleep(2000);
+        }
+
+
+        String url = getURL();
+
+        while(url.equalsIgnoreCase("NA")){
+            url = getURL();
+            Thread.sleep(500);
+            System.out.println("Here");
+        }
+
+        if(url.equalsIgnoreCase("NOT_FOUND")){
+            ConnectionManager.sendLog(name, "Timed out, trying again...");
+            urlRunCount = 0;
+            return getMovieFile(baseUrl);
+            //Will wait until 80 tries has passed, if not found, will close window, open a new one and try to get url again.
+        }
+
+        return url;
+    }
+
+    public void quit(){
+        driver.close();
+    }
+
+
+    public  String getGenre(String baseUrl) throws InterruptedException {
+       // driver.get(baseUrl);
 
         System.out.println("Getting genre for: " + baseUrl);
         ConnectionManager.sendLog(name, "Getting video genre");
@@ -412,7 +457,7 @@ public class SolarGrabber {
     }
 
     public  String getName(String baseUrl) throws InterruptedException {
-        driver.get(baseUrl);
+       // driver.get(baseUrl);
         System.out.println("Getting name for: " + baseUrl);
         ConnectionManager.sendLog(name, "Getting video title");
         WebElement genreList = getElement(driver, By.className("movie_title"));
@@ -425,7 +470,11 @@ public class SolarGrabber {
         List<HarEntry> entries = proxy.getHar().getLog().getEntries();
         for (HarEntry entry : entries) {
             if(entry.getRequest().getUrl().contains("/stream2/")){
-                System.out.println("Found url[" + urlRunCount + "]: " + entry.getRequest().getUrl());
+                System.out.println("Found url 2[" + urlRunCount + "]: " + entry.getRequest().getUrl());
+                return entry.getRequest().getUrl();
+            }else if(entry.getRequest().getUrl().contains("index"))
+            {
+                System.out.println("Found url 1[" + urlRunCount + "]: " + entry.getRequest().getUrl());
                 return entry.getRequest().getUrl();
             }else{
                 long currentTime = System.currentTimeMillis();

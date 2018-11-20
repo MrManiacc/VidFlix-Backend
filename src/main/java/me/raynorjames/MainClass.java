@@ -21,13 +21,19 @@ import java.util.List;
 
 public class MainClass {
     public static String driverPath;
+    public static String binPath;
 
     public static void main(String[] args) throws InterruptedException, URISyntaxException, UnknownHostException {
         driverPath = args[0];
+        binPath = args[1];
         if(!new File(driverPath).exists())
             System.out.println("DOESN'T EXSIST: " + driverPath);
-         ConnectionManager connectionManager = new ConnectionManager(3000);
 
+        if(!new File(binPath).exists())
+            System.out.println("DOESN'T EXSIST: " + binPath);
+
+         ConnectionManager connectionManager = new ConnectionManager(3000);
+       // new Video("https://solarmovie.id/movie/solo-a-star-wars-story/OdGaSB7i", new SolarGrabber(false, "Star wars"));
 
     }
 

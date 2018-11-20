@@ -6,16 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a835fdff-8c62-4d3e-8590-64a628c534c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/raynorjames/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/raynorjames/ConnectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/raynorjames/QueueManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/raynorjames/QueueManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/raynorjames/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/raynorjames/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/raynorjames/SolarGrabber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/raynorjames/SolarGrabber.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/raynorjames/Video.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/raynorjames/Video.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/raynorjames/VideoCompleteSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/raynorjames/VideoCompleteSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/raynorjames/VideoManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/raynorjames/VideoManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/raynorjames/ConnectionManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/raynorjames/ConnectionManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/raynorjames/QueueManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/raynorjames/QueueManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/raynorjames/Video.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/raynorjames/Video.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/raynorjames/VideoCompleteSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/raynorjames/VideoCompleteSender.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/raynorjames/VideoManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/me/raynorjames/VideoManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/raynorjames/SolarGrabber.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/me/raynorjames/Video.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/me.raynorjames-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/me.raynorjames-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,6 +24,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/meraynorjames$Main.ic" NAME="Main Coverage Results" MODIFIED="1541313180203" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/meraynorjames$MainClass.ic" NAME="MainClass Coverage Results" MODIFIED="1541995481219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/VidFlix_Backend$MainClass.ic" NAME="MainClass Coverage Results" MODIFIED="1542674062429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1130064506">
@@ -115,48 +112,69 @@
     <session id="1466462130">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1051" />
+          <entry key="java" value="1613" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1051" />
+          <entry key="JAVA" value="1613" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="1" />
-          <entry key="java" value="1" />
+          <entry key="class" value="3" />
+          <entry key="java" value="2" />
           <entry key="png" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="1" />
+          <entry key="CLASS" value="3" />
           <entry key="Image" value="1" />
-          <entry key="JAVA" value="1" />
+          <entry key="JAVA" value="2" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/SolarGrabber.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="392" column="28" selection-start-line="392" selection-start-column="28" selection-end-line="392" selection-end-column="28" />
+            <state relative-caret-position="575">
+              <caret line="126" column="8" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#15075#15076#0" expanded="true" />
+                <element signature="e#15105#15106#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-api/3.141.0/selenium-api-3.141.0.jar!/org/openqa/selenium/WebElement.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="107">
+              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/lang/String.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="558">
+              <caret line="1081" column="26" selection-start-line="1081" selection-start-column="26" selection-end-line="1081" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -164,8 +182,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/ConnectionManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="95" column="20" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="20" />
+            <state relative-caret-position="437">
+              <caret line="27" column="58" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="27" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -176,8 +194,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/MainClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="28" column="57" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
+            <state relative-caret-position="759">
+              <caret line="33" selection-start-line="33" selection-end-line="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -188,7 +206,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/QueueManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
+            <state relative-caret-position="1309">
               <caret line="174" column="84" selection-start-line="174" selection-start-column="84" selection-end-line="174" selection-end-column="84" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -200,38 +218,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/Video.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+            <state relative-caret-position="253">
+              <caret line="26" column="47" lean-forward="true" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
               <folding>
+                <element signature="e#1368#1369#0" expanded="true" />
                 <element signature="e#1402#1403#0" expanded="true" />
-                <element signature="e#1329#1330#0" expanded="true" />
-                <element signature="e#1357#1358#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/VideoCompleteSender.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1998#1999#0" expanded="true" />
-                <element signature="e#2051#2052#0" expanded="true" />
-                <element signature="e#2123#2124#0" expanded="true" />
-                <element signature="e#2174#2175#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/SeriesQuery.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/VideoCompleteSender.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="22" column="46" lean-forward="true" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+            <state relative-caret-position="230">
+              <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -254,8 +255,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/VideoManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="734">
-              <caret line="135" column="31" lean-forward="true" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
+            <state relative-caret-position="343">
+              <caret line="106" selection-start-line="106" selection-end-line="106" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -274,14 +275,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>total</find>
-      <find>proxy</find>
       <find>initfir</find>
       <find>getEpisodeLinks</find>
       <find>Queue</find>
-      <find>video</find>
       <find>series</find>
-      <find>get</find>
       <find>system.out</find>
       <find>getURL</find>
       <find>initfire</find>
@@ -290,13 +287,10 @@
       <find>Solar</find>
       <find>System.out</find>
       <find>Getting name</find>
-      <find>getname</find>
       <find>geturl</find>
       <find>ConnectionManager.sendLog</find>
       <find>name</find>
-      <find>headles</find>
       <find>baseUrl</find>
-      <find>headless</find>
       <find>quer</find>
       <find>exit</find>
       <find>query</find>
@@ -304,6 +298,13 @@
       <find>retrying</find>
       <find>ser</find>
       <find>-5</find>
+      <find>headles</find>
+      <find>get</find>
+      <find>gett</find>
+      <find>getname</find>
+      <find>video</find>
+      <find>headless</find>
+      <find>File</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -331,16 +332,16 @@
         <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/Util.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/VideoCompleteAutoRun.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/TvShow.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/MainClass.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/SolarGrabber.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/VideoQuery.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/Video.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/VideoCompleteSender.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/SeriesQuery.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/QueueManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/ConnectionManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/VideoManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/ConnectionManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/Video.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/MainClass.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/raynorjames/SolarGrabber.java" />
       </list>
     </option>
   </component>
@@ -358,7 +359,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="155" />
+    <option name="x" value="-990" />
     <option name="y" value="-8" />
     <option name="width" value="2560" />
     <option name="height" value="1440" />
@@ -369,8 +370,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -417,13 +416,15 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://F:/Development/VidFlix-Backend/src/main/java/me/raynorjames/SolarGrabber.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542165890449" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542677661754" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -454,7 +455,7 @@
     <configuration name="MainClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="me.raynorjames.MainClass" />
       <module name="me.raynorjames" />
-      <option name="PROGRAM_PARAMETERS" value="&quot;C:\Users\James\Desktop\VidFlix\assets\geckodriver.exe&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;C:\Users\James\Desktop\VidFlix\assets\geckodriver.exe&quot; &quot;C:\Users\James\Desktop\VidFlix\assets\winFox\firefox.exe&quot;" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -518,18 +519,19 @@
       <workItem from="1542011307884" duration="3522000" />
       <workItem from="1542125656272" duration="4800000" />
       <workItem from="1542137711981" duration="7372000" />
-      <workItem from="1542164001721" duration="2281000" />
+      <workItem from="1542164001721" duration="2773000" />
+      <workItem from="1542673005737" duration="3954000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98707000" />
+    <option name="totallyTimeSpent" value="103153000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21740858" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21899842" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -538,7 +540,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3299532" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.15834634" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.16380656" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39937598" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -547,7 +549,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.18174727" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.25663027" />
+      <window_info active="true" anchor="bottom" id="Messages" order="11" visible="true" weight="0.25663027" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -581,7 +583,6 @@
     <entry file="jar://$MAVEN_REPOSITORY$/org/json/json/20090211/json-20090211.jar!/org/json/JSONObject.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-api/3.141.0/selenium-api-3.141.0.jar!/org/openqa/selenium/logging/LoggingPreferences.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-firefox-driver/3.141.0/selenium-firefox-driver-3.141.0.jar!/org/openqa/selenium/firefox/FirefoxOptions.class" />
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/lang/String.java" />
     <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/lang/Thread.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/net/lightbody/bmp/browsermob-core/2.1.5/browsermob-core-2.1.5.jar!/net/lightbody/bmp/proxy/CaptureType.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-remote-driver/3.141.0/selenium-remote-driver-3.141.0.jar!/org/openqa/selenium/remote/DesiredCapabilities.class" />
@@ -644,16 +645,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/SolarGrabber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="392" column="28" selection-start-line="392" selection-start-column="28" selection-end-line="392" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5171">
@@ -661,15 +652,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/Video.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/SeriesQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+        <state relative-caret-position="506">
+          <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
           <folding>
-            <element signature="e#1402#1403#0" expanded="true" />
-            <element signature="e#1329#1330#0" expanded="true" />
-            <element signature="e#1357#1358#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="1081" column="26" selection-start-line="1081" selection-start-column="26" selection-end-line="1081" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -683,50 +679,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/MainClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="28" column="57" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/SeriesQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="22" column="46" lean-forward="true" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/QueueManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
+        <state relative-caret-position="1309">
           <caret line="174" column="84" selection-start-line="174" selection-start-column="84" selection-end-line="174" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/ConnectionManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="95" column="20" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/VideoManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="734">
-          <caret line="135" column="31" lean-forward="true" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -736,13 +692,69 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/VideoCompleteSender.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+          <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1998#1999#0" expanded="true" />
-            <element signature="e#2051#2052#0" expanded="true" />
-            <element signature="e#2123#2124#0" expanded="true" />
-            <element signature="e#2174#2175#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/ConnectionManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="27" column="58" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="27" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/VideoManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-api/3.141.0/selenium-api-3.141.0.jar!/org/openqa/selenium/WebElement.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/Video.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="26" column="47" lean-forward="true" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
+          <folding>
+            <element signature="e#1368#1369#0" expanded="true" />
+            <element signature="e#1402#1403#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/MainClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="759">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/raynorjames/SolarGrabber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="126" column="8" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#15075#15076#0" expanded="true" />
+            <element signature="e#15105#15106#0" expanded="true" />
           </folding>
         </state>
       </provider>
